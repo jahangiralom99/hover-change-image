@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hover Tab Section</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 50%;
+        }
+        .image-container{
+            width: 50%;
+        }
+
+        .tab {
+            padding: 10px 10px;
+            cursor: pointer;
+            background: #f0eded;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .tab:hover {
+            background: #bbb;
+        }
+
+        .content {
+            display: none;
+            padding: 20px;
+        }
+
+        .content img {
+            width: 100%;
+            height: auto;
+        }
+
+        .active {
+            display: block;
+        }
+
+        .image-and-icon {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-and-icon img{
+            width: 100px;
+            height: 100px;
+            background: #ffefe5;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tabs">
+            <div class="tab" data-target="content1">
+                <div class="image-and-icon">
+                    <img src="https://cdn.shopify.com/s/files/1/0619/9043/6969/files/download_56.png?v=1740229150"
+                        alt="">
+                    <div>
+                        <h1>Search for matches</h1>
+                        <p>Search and filter from millions of product and supplier offerings to find the matching ones for your business.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab" data-target="content2">
+                <div class="image-and-icon">
+                    <img src="https://cdn.shopify.com/s/files/1/0619/9043/6969/files/download_56.png?v=1740229150"
+                        alt="">
+                    <div>
+                        <h1>Search for matches</h1>
+                        <p>Search and filter from millions of product and supplier offerings to find the matching ones for your business.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab" data-target="content3">
+                <div class="image-and-icon">
+                    <img src="https://cdn.shopify.com/s/files/1/0619/9043/6969/files/download_56.png?v=1740229150"
+                        alt="">
+                    <div>
+                        <h1>Search for matches</h1>
+                        <p>Search and filter from millions of product and supplier offerings to find the matching ones for your business.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <div id="content1" class="content active">
+                <img src="https://hollyberrymua.com/cdn/shop/files/12.png?v=1739857419&width=720" alt="Image 1">
+            </div>
+            <div id="content2" class="content">
+                <img src="https://hollyberrymua.com/cdn/shop/files/Untitled_1000_x_1000_px.png?v=1739860497&width=720"
+                    alt="Image 2">
+            </div>
+            <div id="content3" class="content">
+                <img src="https://cdn.shopify.com/s/files/1/0621/8540/6511/files/wedding-archway-backyard-happy-wedding-couple-outdoors-before-wedding-ceremony.gif?v=1739768749&width=1440"
+                    alt="Image 3">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabs = document.querySelectorAll(".tab");
+        const contents = document.querySelectorAll(".content");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("mouseover", () => {
+                contents.forEach(content => content.classList.remove("active"));
+                document.getElementById(tab.dataset.target).classList.add("active");
+            });
+        });
+    </script>
+</body>
+
+</html>

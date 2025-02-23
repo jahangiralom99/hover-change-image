@@ -1,0 +1,108 @@
+<div class="collection-tabs">
+    <div class="tabs">
+      <button class="tab" data-collection="collection-1">Collection 1</button>
+      <button class="tab" data-collection="collection-2">Collection 2</button>
+      <button class="tab" data-collection="collection-3">Collection 3</button>
+    </div>
+    <div class="content-wrapper"> 
+      <div class="tab-content" id="product-list">
+        <!-- Products will be loaded here -->
+        <div class="preview-image" id="preview-image">
+            <img src="https://hollyberrymua.com/cdn/shop/files/12.png?v=1739857419&width=720" alt="Preview">
+          </div>
+      </div>
+      <div class="preview-image" id="preview-image">
+        <img src="https://hollyberrymua.com/cdn/shop/files/12.png?v=1739857419&width=720" alt="Preview">
+      </div>
+    </div>
+  </div>
+  
+  <style>
+  .collection-tabs {
+    text-align: center;
+    margin: 30px 0;
+  }
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .tab {
+    padding: 10px 20px;
+    border: none;
+    background: #f4f4f4;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  .tab:hover {
+    background: #000;
+    color: #fff;
+  }
+  .content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tab-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 70%;
+  }
+  .product-item {
+    width: 200px;
+    text-align: center;
+  }
+  .preview-image {
+    width: 25%;
+  }
+  .preview-image img {
+    max-width: 100%;
+    display: none;
+  }
+  </style>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".tab");
+    const productList = document.getElementById("product-list");
+    const previewImage = document.getElementById("preview-image").querySelector("img");
+  
+    tabs.forEach(tab => {
+      tab.addEventListener("mouseover", function () {
+        const collectionHandle = this.getAttribute("data-collection");
+  
+        fetch(`/collections/${collectionHandle}/products.json`)
+          .then(response => response.json())
+          .then(data => {
+            productList.innerHTML = "";
+            data.products.slice(0, 8).forEach((product, index) => {
+              productList.innerHTML += `
+                <div class="product-item" data-image="${product.images[0]}">
+                  <h3>${product.title}</h3>
+                  <p>$${(product.variants[0].price / 100).toFixed(2)}</p>
+                </div>
+              `;
+            });
+            if (data.products.length > 0) {
+              previewImage.src = data.products[0].images[0];
+              previewImage.style.display = "block";
+            }
+          });
+      });
+    });
+  
+    productList.addEventListener("mouseover", function (event) {
+      if (event.target.classList.contains("product-item")) {
+        const newImage = event.target.getAttribute("data-image");
+        if (newImage) {
+          previewImage.src = newImage;
+          previewImage.style.display = "block";
+        }
+      }
+    });
+  });
+  </script>
+  
